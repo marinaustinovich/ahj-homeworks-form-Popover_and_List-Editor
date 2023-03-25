@@ -1,4 +1,4 @@
-
+[![Build status](https://ci.appveyor.com/api/projects/status/j8xqp3bc0wpxdfke/branch/main?svg=true)](https://ci.appveyor.com/project/marinaustinovich/ahj-homeworks-form-popover-and-list-editor/branch/main)
 
 ### Popovers
 

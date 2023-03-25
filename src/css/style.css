@@ -1,0 +1,120 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #eee;
+  text-align: center;
+}
+
+.container {
+  background-color: antiquewhite;
+  border: 1px solid #9e2c2c;
+  border-radius: 0.75rem;
+  padding: 3rem;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 3.5em;
+  margin: 0;
+}
+
+form {
+  position: relative;
+}
+
+.form-control {
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+
+.input {
+  display: inline-block;
+  padding: .55rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: rgb(94, 85, 85);
+  border: 1px solid rgb(170, 161, 161);
+  border-radius: 0.25rem;
+  outline: none;
+}
+
+input:focus {
+  border: 2px solid rgb(226, 77, 77);
+}
+
+/* input:invalid {
+  border: 2px solid red;
+  box-shadow: none;
+} */
+
+.btn {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  padding: .65rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color:rgb(243 237 237);
+  background-color: #ea0866;
+  border: 1px solid rgb(170, 161, 161);
+  border-radius: 0.25rem;
+  user-select: none;
+}
+
+.popover-message {
+  display: none;
+  position: absolute;
+  width: 200px;
+  background-color: antiquewhite;
+  border: 2px solid rgb(199, 194, 194);
+  border-radius: 5px;
+  box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+
+.popover-message::before {
+  content: '';
+	display: block;
+	position: absolute;
+	z-index: -1;
+	left: 50%;
+	bottom: 0;
+	width: 30px;
+	height: 30px;
+	margin: -15px;
+	background:rgb(223 207 207);
+	border-radius: 0 0 5px 0;
+	transform: rotate(45deg);
+}
+
+.popover-title {
+  padding: 5px;
+  background-color: rgb(223 207 207);
+  border-bottom: 1px solid rgb(87, 83, 83);
+}
+
+.popover-text {
+  text-align: left;
+  padding: 0.75rem;
+  background-color: #e4e1e1;
+}
+
+.form-error {
+  display: none;
+  position: absolute;
+  padding: 5px 10px;
+  margin-left: 5px; 
+  width: 200px;
+  background-color: antiquewhite;
+  border: 2px solid red;
+  border-radius: 5px;
+  box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+
+.form-error_visible, .popover-message_visible {
+  display: block;
+}
