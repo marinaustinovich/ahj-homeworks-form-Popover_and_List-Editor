@@ -21,9 +21,9 @@ describe('popover', () => {
     });
 
     browser = await puppetteer.launch({
-      headless: false, // show gui
-      slowMo: 250,
-      devtools: true, // show devTools
+      // headless: false, // show gui
+      // slowMo: 250,
+      // devtools: true, // show devTools
     });
     page = await browser.newPage();
   });
@@ -44,7 +44,7 @@ describe('popover', () => {
   test('should add .form-error_visible', async () => {
     await page.goto(baseUrl);
     const form = await page.$('#form-container');
-    const btn = await form.$('.btn');
+    const btn = await form.$('[data-toggle="popover"]');
     btn.click();
     await page.waitForSelector('.form-error_visible');
   });
@@ -60,5 +60,52 @@ describe('popover', () => {
 
     btn.click();
     await page.waitForSelector('.form-error_visible');
+  });
+
+  test('should add .editor-form-container_visible for click + and add .form-error_visible for invalid name', async () => {
+    await page.goto(baseUrl);
+    const editor = await page.$('#editor-container');
+    const addBtn = await editor.$('[data-id="add"]');
+    addBtn.click();
+
+    const form = await editor.$('#editor-form');
+    const btn = await form.$('[data-toggle="editor-add"]');
+    btn.click();
+    await page.waitForSelector('.editor-form-container_visible');
+    await editor.waitForSelector('.form-error_visible');
+  });
+
+  test('should add .form-error_visible for invalid cost', async () => {
+    await page.goto(baseUrl);
+    const editor = await page.$('#editor-container');
+    const addBtn = await editor.$('[data-id="add"]');
+    addBtn.click();
+
+    const form = await editor.$('#editor-form');
+    const btn = await form.$('[data-toggle="editor-add"]');
+    const inputName = await form.$('[data-id="name"]');
+    const inputCost = await form.$('[data-id="cost"]');
+    await inputName.type('cat');
+    await inputCost.type('0');
+
+    btn.click();
+    await editor.waitForSelector('.form-error_visible');
+  });
+
+  test('should add .product-row for valid data', async () => {
+    await page.goto(baseUrl);
+    const editor = await page.$('#editor-container');
+    const addBtn = await editor.$('[data-id="add"]');
+    addBtn.click();
+
+    const form = await editor.$('#editor-form');
+    const btn = await form.$('[data-toggle="editor-add"]');
+    const inputName = await form.$('[data-id="name"]');
+    const inputCost = await form.$('[data-id="cost"]');
+    await inputName.type('cat');
+    await inputCost.type('50');
+
+    btn.click();
+    await editor.waitForSelector('.product-row');
   });
 });
