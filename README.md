@@ -1,9 +1,8 @@
+### Popovers
+
 [![Build status](https://ci.appveyor.com/api/projects/status/j8xqp3bc0wpxdfke/branch/main?svg=true)](https://ci.appveyor.com/project/marinaustinovich/ahj-homeworks-form-popover-and-list-editor/branch/main)
 
 deployment: https://marinaustinovich.github.io/ahj-homeworks-form-Popover_and_List-Editor/
-
-### Popovers
-
 #### Легенда
 
 Есть замечательный фреймворк Bootstrap, в котором реализовано достаточно много интересных виджетов с использованием jQuery. Но, как говорят современные и модные программисты, «jQuery не нужен», поэтому реализован виджет на чистом JS.

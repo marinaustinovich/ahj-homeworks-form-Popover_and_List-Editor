@@ -1,58 +1,62 @@
-import PopoverContent from './PopoverContent';
+import './popover.css';
 
 export default class Popover {
   constructor() {
-    this.container = null;
+    this._container = null;
   }
 
   bindToDOM(container) {
-    /* скрыто для JSDOM тетов, иначе выкидывает ошибку */
-
-    // if (!(container instanceof HTMLElement)) {
-    //   throw new Error('container is not HTMLElement');
-    // }
-    this.container = container;
-
+    this._container = container;
     this.drawUi();
+    this.setEventListeners();
   }
 
   drawUi() {
-    this.checkBinding();
+    if (!this.isBound()) return;
 
-    this.container.innerHTML = `
-    <div class="wrapper-btn">
-      <a tabindex="0" role="button" class="btn" data-toggle="popover" title="Popover title" data-content="And here's some amazing content?">Click to toggle popover</a>
-    </div>
-    <div class="popover-message"></div>
-    `;
-
-    const popoverButton = this.container.querySelector('.btn');
-
-    popoverButton.addEventListener('click', (e) => this.onClick(e));
+    this._container.innerHTML = Popover.markUp;
   }
 
-  checkBinding() {
-    if (this.container === null) {
-      throw new Error('popover not bind to DOM');
+  isBound() {
+    if (this._container === null) {
+      return false;
     }
+    return true;
+  }
+
+  setEventListeners() {
+    if (!this.isBound()) return;
+
+    const popoverButton = this._container.querySelector('.btn');
+    popoverButton.addEventListener('click', (e) => this.onClick(e));
   }
 
   static get markUp() {
     return `
-    <div class="wrapper-btn">
-      <a tabindex="0" role="button" class="btn" data-toggle="popover" title="Popover title" data-content="And here's some amazing content?">Click to toggle popover</a>
-    </div>
-    <div class="popover-message"></div>
+      <div class="wrapper-btn">
+        <a tabindex="0" role="button" class="btn" data-toggle="popover" title="Popover title" data-content="And here's some amazing content?">Click to toggle popover</a>
+      </div>
+      <div class="popover-message">
+        <h3 class="popover-title">Popover title</h3>
+        <p class="popover-text">And here's some amazing content. It's very engaging. Right?"</p>
+      </div>
     `;
   }
 
   onClick(e) {
-    const popoverMessage = this.container.querySelector('.popover-message');
-    popoverMessage.innerHTML = PopoverContent.getContent();
-    popoverMessage.classList.toggle('popover-message_visible');
-    const coords = e.currentTarget.getBoundingClientRect();
+    this.popoverMessage = this._container.querySelector('.popover-message');
+    this.popoverMessage.classList.toggle('popover-message_visible');
+    this.positionPopoverMessage(e);
+  }
 
-    popoverMessage.style.top = `${coords.top + window.scrollY - popoverMessage.offsetHeight - 5}px`;
-    popoverMessage.style.left = `${coords.left + window.scrollX + e.currentTarget.offsetWidth / 2 - popoverMessage.offsetWidth / 2}px`;
+  positionPopoverMessage(e) {
+    const coords = e.currentTarget.getBoundingClientRect();
+    const popoverMessageRect = this.popoverMessage.getBoundingClientRect();
+
+    const left = coords.left + coords.width / 2 - popoverMessageRect.width / 2 + window.scrollX;
+    const top = coords.top - popoverMessageRect.height - 20 + window.scrollY;
+
+    this.popoverMessage.style.left = `${left}px`;
+    this.popoverMessage.style.top = `${top}px`;
   }
 }
